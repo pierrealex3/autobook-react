@@ -1,7 +1,6 @@
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
-import App from "./components/app";
+import FilterableVehicleEventList from "./components/appx";
 
-const container = document.getElementById("app");
-
-ReactDOM.hydrateRoot(container, <App />);
+const root = ReactDOM.createRoot(document.getElementById("appx"));
+root.render(<FilterableVehicleEventList />);
