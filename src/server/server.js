@@ -1,8 +1,13 @@
 import express from "express";
 import ReactDOMServer from "react-dom/server";
+import cors from "cors";
 
 const server = express();
 server.use(express.static("dist"));
+server.use(express.static("public")); // PA allow images to be fetched
+server.use(cors({
+  origin: 'http://localhost:4242'
+}));
 
 server.get("/", (req, res) => {
   
