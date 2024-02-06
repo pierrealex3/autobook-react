@@ -17,7 +17,7 @@ export default function VehicleForm() {
         console.log(vehicle);
         try {
             const response = await fetchForCreate("vehicles", vehicle);
-            debugger            
+            response.text(); // prevent the "Fetch failed loading" message in the console
             setSubmitted("Created");
         } catch (e) {
             console.log(e);

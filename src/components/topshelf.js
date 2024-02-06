@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-const TopShelf = () => {
+export default function TopShelf () {
     return (
         <nav>
         <ul>
@@ -16,5 +16,3 @@ const TopShelf = () => {
     );
 
 };
-
-export default TopShelf;

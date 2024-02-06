@@ -1,5 +1,5 @@
 import {BrowserRouter} from "react-router-dom";
-import AppShell from "./appshell";
+import AppShell from "./AppShell";
 
 const IndexPage = () => {
     return (        
