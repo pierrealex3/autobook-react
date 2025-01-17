@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useFetch from "../services/FetchForGetHook";
 import { vehicleBrandImageMap } from "../utils/ImageUtils";
+import { CurrentUser } from './CurrentUser';
 
 export default function VehicleEventSummary() {
 
@@ -17,7 +18,7 @@ export default function VehicleEventSummary() {
     }
 
     function handleOnVehicleClick(vehicle) {
-        setSelectedVehicle(vehicle);        
+        setSelectedVehicle(vehicle === selectedVehicle ? null : vehicle);        
     }
 
     function handleOnNewVehicleEventClick() {
@@ -38,7 +39,8 @@ export default function VehicleEventSummary() {
 
     return (
         <div>
-            <h4>Logged on user: {localStorage.getItem("user")}</h4>
+            <CurrentUser />
+            
             <div>
                 {
                     vehicles.length == 0 ? <input type="button" value="New Vehicle" className="btn btn-primary" onClick={createVehicule} /> :
@@ -57,17 +59,21 @@ export default function VehicleEventSummary() {
             </div> 
             }
             <div>
-              {events.map(
-                eventx => 
-                <div key={eventx.id} style={{ border: 'groove', backgroundColor: 'lightgray'}}>
-                  <img src={vehicleBrandImageMap[vehicleIdPropsMap[eventx.vehicleId].brand]} alt={vehicleIdPropsMap[eventx.vehicleId].brand} width="75" />
-                  <h4>{eventx.vehicleTag}</h4>
-                  <p>
-                  {eventx.date}
-                  <br></br>
-                  {eventx.title}
-                  </p>
-               </div>
+                {events.map(eventx => {
+                    if (selectedVehicle === null || selectedVehicle?.id === eventx.vehicleId) {
+                        return (
+                            <div key={eventx.id} style={{ border: 'groove', backgroundColor: 'lightgray' }}>
+                                <img src={vehicleBrandImageMap[vehicleIdPropsMap[eventx.vehicleId].brand]} alt={vehicleIdPropsMap[eventx.vehicleId].brand} width="75" />
+                                <h4>{eventx.vehicleTag}</h4>
+                                <p>
+                                    {eventx.date}
+                                    <br></br>
+                                    {eventx.title}
+                                </p>
+                            </div>);
+                    }
+                    return null;
+                }
                )}              
             </div>
         </div>
