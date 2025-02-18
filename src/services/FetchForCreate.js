@@ -5,6 +5,7 @@ export async function fetchForCreate(resourcePath, resource) {
     return fetch(API_BASE_URI + resourcePath, {
         method: "POST",
         headers: {
+            "X-MockUser": localStorage.getItem("user"),
             "Content-Type": "application/json",
         },
         body: JSON.stringify(resource),
