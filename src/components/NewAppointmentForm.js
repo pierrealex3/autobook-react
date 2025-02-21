@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { fetchForCreate } from "../services/FetchForCreate";
 import { useNavigate } from "react-router-dom";
+import {AppointmentForm} from "./AppointmentForm";
 
 const appointmentModel = {
     date: "",
@@ -38,33 +39,7 @@ export default function NewAppointmentForm() {
 
     return (
         <div>
-            <h4>selected vehicle id: {localStorage.getItem("selectedVehicleId")}</h4>
-            <form onChange={handleChange} onSubmit={handleSubmit}>            
-                <div>
-                    <label htmlFor="date">Date <i>(Format yyyy-MM-dd)</i></label>
-                    <br />
-                    <input id="date" type="text" value={appointment.date} />
-                </div>
-                <div>
-                    <label htmlFor="time">Time <i>(Format hh:mm)</i></label>
-                    <br />
-                    <input id="time" type="text" value={appointment.time} />
-                </div>
-                <div>
-                    <label htmlFor="title">Title</label>
-                    <br />
-                    <input id="title" type="text" value={appointment.title} />
-                </div>
-                <div>
-                    <label htmlFor="note">Note</label>
-                    <br />
-                    <textarea id="note" value={appointment.note}></textarea>
-                </div>
-                <div>
-                    <input type="submit" className="btn btn-primary" value="Create" />
-                </div>
-            </form>
+          <AppointmentForm handleChange={handleChange} handleSubmit={handleSubmit} appointment={appointment} />
         </div>
-
     );
 }
