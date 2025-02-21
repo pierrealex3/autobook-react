@@ -7,8 +7,8 @@ import { CurrentUser } from './CurrentUser';
 export default function VehicleEventSummary() {
 
     const navHook = useNavigate();
-    const { dataArr:vehicles, error:errorVehicles, loading:loadingVehicles } = useFetch("vehicles");
-    const { dataArr:events, error:errorEvents, loading:loadingEvents } = useFetch("events");
+    const { dataArr:vehicles, setDataArr:setVehicles, error:errorVehicles, loading:loadingVehicles } = useFetch("vehicles", []);
+    const { dataArr:events, setDataArr:setEvents, error:errorEvents, loading:loadingEvents } = useFetch("events", []);
     const [selectedVehicle, setSelectedVehicle] = useState(null);
     let vehicleIdPropsMap = {}; /* vehicle id as top-level key */
 
@@ -24,6 +24,18 @@ export default function VehicleEventSummary() {
     function handleOnNewVehicleEventClick() {
         localStorage.setItem("selectedVehicleId", selectedVehicle.id);
         navHook('/vehicleevent');
+    }
+
+    /**
+     * Add navigation for many other events represented by the discriminator "event.type"
+     * @param {*} event 
+     */
+    function handleOnEventClick(event) {
+        console.log("hell");
+        if ("APPOINTMENT" === event.eventType) {
+            navHook(`/vehicleevent/appointment/${event.eventTargetId}`);
+        }
+
     }
 
     if (loadingVehicles || loadingEvents) return (<div>SPINNER</div>);
@@ -62,7 +74,7 @@ export default function VehicleEventSummary() {
                 {events.map(eventx => {
                     if (selectedVehicle === null || selectedVehicle?.id === eventx.vehicleId) {
                         return (
-                            <div key={eventx.id} style={{ border: 'groove', backgroundColor: 'lightgray' }}>
+                            <div key={eventx.eventTargetId} style={{ border: 'groove', backgroundColor: 'lightgray' }} onClick={ () => handleOnEventClick(eventx) }>
                                 <img src={vehicleBrandImageMap[vehicleIdPropsMap[eventx.vehicleId].brand]} alt={vehicleIdPropsMap[eventx.vehicleId].brand} width="75" />
                                 <h4>{eventx.vehicleTag}</h4>
                                 <p>

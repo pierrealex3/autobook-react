@@ -5,6 +5,7 @@ import {Routes, Route} from "react-router-dom";
 import VehicleForm from "./VehicleForm";
 import NewVehicleEventSelector from "./NewVehicleEventSelector";
 import NewAppointmentForm from "./NewAppointmentForm";
+import UpdateAppointmentForm from "./UpdateAppointmentForm";
 
 export default function AppShell () {
     return (
@@ -16,6 +17,7 @@ export default function AppShell () {
           <Route path="/vehicle" element={<VehicleForm />} />
           <Route path="/vehicleevent" element={<NewVehicleEventSelector />} />
           <Route path="/vehicleevent/appointment" element={<NewAppointmentForm />} />
+          <Route path="/vehicleevent/appointment/:appointmentId" element={<UpdateAppointmentForm />} />
         </Routes>
       </>
     );

@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 
 const API_BASE_URI = "http://localhost:7778/autobook/";
 
-export default function useFetch(resourcePath) {
+export default function useFetch(resourcePath, initialStateValue) {
 
-    const [dataArr, setDataArr] = useState([]);
+    const [dataArr, setDataArr] = useState(initialStateValue);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -39,7 +39,7 @@ export default function useFetch(resourcePath) {
 
     }, []);
 
-    return { dataArr, error, loading };
+    return { dataArr, setDataArr, error, loading };
 
 
 
